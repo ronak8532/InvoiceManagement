@@ -1,23 +1,28 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    private route: Router,
+  ) { }
+
+  login(data: any) {
+    return this.http.post(`${environment.baseUrl}/admin/user/login`, data);
+  }
 
   currentUserValue() {
-    let user = {
-      firstName: 'Ronak',
-      lastName: 'Dumaniya',
-      token: 'ABC'
-    }
+    let token = localStorage.getItem('authToken');
 
-    return user;
+    return token;
   }
 
   logout() {
-    localStorage.removeItem('user');
+    localStorage.removeItem('authToken');
   }
 }

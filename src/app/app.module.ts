@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { ErrorInterceptor } from './helpers/error.interceptor';
 
 import {
   PERFECT_SCROLLBAR_CONFIG,
@@ -46,6 +48,8 @@ import {
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 
+import { ToastrModule } from 'ngx-toastr';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -61,6 +65,12 @@ const APP_CONTAINERS = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 15000, // 15 seconds
+      closeButton: true,
+      progressBar: true,
+    }),
+    HttpClientModule,
     AppRoutingModule,
     AvatarModule,
     BreadcrumbModule,
@@ -76,6 +86,7 @@ const APP_CONTAINERS = [
     FormModule,
     UtilitiesModule,
     ButtonGroupModule,
+    FormsModule,
     ReactiveFormsModule,
     SidebarModule,
     SharedModule,
@@ -96,7 +107,8 @@ const APP_CONTAINERS = [
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
     IconSetService,
-    Title
+    Title,
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],
 })
