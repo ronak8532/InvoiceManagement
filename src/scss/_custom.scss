@@ -1,2 +1,15 @@
 // Here you can add other styles
 
+.btn-primary {
+  background-color: #3c8dbc;
+  border-color: #367fa9;
+}
+
+.form-horizontal .label-wrapper .col-form-label {
+  text-align: right;
+  flex-grow: 2;
+}
+
+label:not(.form-check-label):not(.custom-file-label) {
+  font-weight: 600;
+}

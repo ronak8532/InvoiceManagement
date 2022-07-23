@@ -1,0 +1,104 @@
+<form [formGroup]="customerForm" (ngSubmit)="saveCustomer()">
+  <div class="card card-default">
+    <div class="card-header">
+      Customer Info
+      <button type="submit" class="btn btn-primary float-right">Save</button>
+      <button type="button" class="btn btn-primary float-right mr-2" (click)="backCustomer()">Back</button>
+    </div>
+
+    <div class="card-body">
+      <div class="form-group row">
+        <div class="col-md-2 text-right">
+          <div class="label-wrapper">
+            <label class="col-form-label">FirstName</label>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <input autocomplete="off" class="form-control text-box single-line" formControlName="firstName"
+            name="firstName" type="text">
+          <div *ngIf="submitted && f.firstName.errors" class="text-danger">
+            <div *ngIf="f.firstName.errors.required">FirstName is required</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-group row">
+        <div class="col-md-2 text-right">
+          <div class="label-wrapper">
+            <label class="col-form-label">LastName</label>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <input autocomplete="off" class="form-control text-box single-line" formControlName="lastName" name="lastName"
+            type="text">
+          <div *ngIf="submitted && f.lastName.errors" class="text-danger">
+            <div *ngIf="f.lastName.errors.required">LastName is required</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-group row">
+        <div class="col-md-2 text-right">
+          <div class="label-wrapper">
+            <label class="col-form-label">Email</label>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <input autocomplete="off" class="form-control text-box single-line" formControlName="email" name="email"
+            type="email">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-2 text-right">
+          <div class="label-wrapper">
+            <label class="col-form-label">PhoneNumber</label>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <input autocomplete="off" class="form-control text-box single-line" formControlName="phoneNumber"
+            name="phoneNumber" type="tel">
+          <div *ngIf="submitted && f.phoneNumber.errors" class="text-danger">
+            <div *ngIf="f.phoneNumber.errors.required">PhoneNumber is required</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-group row">
+        <div class="col-md-2 text-right">
+          <div class="label-wrapper">
+            <label class="col-form-label">State</label>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <select name="selectedQuantity" id="aantal" class="form-control" formControlName="state"
+            (change)="updateDistrict($event)">
+            <option *ngFor="let option of allState" [value]="option.state">{{option.state}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-2 text-right">
+          <div class="label-wrapper">
+            <label class="col-form-label">City</label>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <select name="selectedQuantity" id="aantal" class="form-control" formControlName="city">
+            <option *ngFor="let option of cities" [value]="option">{{option}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-2 text-right">
+          <div class="label-wrapper">
+            <label class="col-form-label">Address</label>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <input autocomplete="off" class="form-control text-box single-line" formControlName="address" name="address"
+            type="text">
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

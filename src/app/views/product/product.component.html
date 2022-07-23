@@ -1,0 +1,79 @@
+<div class="content-header clearfix">
+  <h1 class="float-left">Product</h1>
+  <div class="float-right">
+    <button class="btn btn-primary mr-2" (click)="createProduct()">Add new</button>
+    <button class="btn btn-success">Export</button>
+  </div>
+</div>
+
+<section class="content">
+  <div class="card card-default">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group row">
+            <div class="col-md-2 text-right">
+              <div class="label-wrapper">
+                <label class="col-form-label">Search</label>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <input autocomplete="off" class="form-control text-box single-line" name="search" type="text">
+            </div>
+            <div class="col-md-3">
+              <button class="btn btn-primary btn-search">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-default">
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">ProductName</th>
+            <th scope="col">Price</th>
+            <th scope="col">Price (No GST)</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="productList">
+          <tr *ngFor="let product of productList; index as i ">
+            <th scope="row">{{i+1}}</th>
+            <td>{{product.productName}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.priceWithoutGST}}</td>
+            <td>
+              <button type="button" class="btn btn-primary mr-2" (click)="updateProduct(product)">Update</button>
+              <button type="button" class="btn btn-danger" (click)="deleteConfirmation(product)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade" id="deleteModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete Customer</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure, you want to delete?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closeModal()">No</button>
+        <button type="button" class="btn btn-primary" (click)="deleteCustomer()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

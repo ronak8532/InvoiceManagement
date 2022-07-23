@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
     }
     this.authService.login(this.loginForm.value).subscribe((res : any) => {
       if(res && res.token) {
+        this.toastrService.success('Success', 'Login Success');
         localStorage.setItem('authToken', res.token);
         this.router.navigate(['/dashboard']);
       }

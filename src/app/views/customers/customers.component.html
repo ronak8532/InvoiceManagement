@@ -1,0 +1,124 @@
+<div class="content-header clearfix">
+  <h1 class="float-left">Customers</h1>
+  <div class="float-right">
+    <button class="btn btn-primary mr-2" (click)="createCustomer()">Add new</button>
+    <button class="btn btn-success">Export</button>
+  </div>
+</div>
+
+<section class="content">
+  <div class="card card-default">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group row">
+            <div class="col-md-4 text-right">
+              <div class="label-wrapper">
+                <label class="col-form-label">Email</label>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <input autocomplete="off" class="form-control text-box single-line" name="email" type="email">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-4 text-right">
+              <div class="label-wrapper">
+                <label class="col-form-label">Name</label>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <input autocomplete="off" class="form-control text-box single-line" name="name" type="text">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group row">
+            <div class="col-md-4 text-right">
+              <div class="label-wrapper">
+                <label class="col-form-label">City</label>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <input autocomplete="off" class="form-control text-box single-line" name="city" type="text">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-4 text-right">
+              <div class="label-wrapper">
+                <label class="col-form-label">Text</label>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <input autocomplete="off" class="form-control text-box single-line" name="text" type="text">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="text-center col-12">
+          <button class="btn btn-primary btn-search">Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-default">
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Firstname</th>
+            <th scope="col">Lastname</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Email</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col">Address</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="customerList">
+          <tr *ngFor="let customer of customerList; index as i ">
+            <th scope="row">{{i+1}}</th>
+            <td>{{customer.firstName}}</td>
+            <td>{{customer.lastName}}</td>
+            <td>{{customer.phoneNumber}}</td>
+            <td>{{customer.email}}</td>
+            <td>{{customer.city}}</td>
+            <td>{{customer.state}}</td>
+            <td>{{customer.address}}</td>
+            <td>
+              <button type="button" class="btn btn-primary mr-2" (click)="updateCustomer(customer)">Update</button>
+              <button type="button" class="btn btn-danger" (click)="deleteConfirmation(customer)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+<div class="modal fade" id="deleteModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete Customer</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure, you want to delete?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closeModal()">No</button>
+        <button type="button" class="btn btn-primary" (click)="deleteCustomer()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
