@@ -1,0 +1,153 @@
+<form [formGroup]="orderForm" (ngSubmit)="saveOrder()">
+  <div class="card card-default">
+    <div class="card-header">
+      Customer Info
+      <button type="submit" class="btn btn-primary float-right">Save</button>
+      <button type="button" class="btn btn-primary float-right mr-2" (click)="backOrder()">Back</button>
+    </div>
+
+    <div class="card-body">
+      <div class="form-group row">
+        <div class="col-md-2 text-right">
+          <div class="label-wrapper">
+            <label class="col-form-label">InvoiceNo.</label>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <input autocomplete="off" class="form-control text-box single-line" formControlName="invoiceNo"
+            name="invoiceNo" type="text">
+          <div *ngIf="submitted && f.invoiceNo.errors" class="text-danger">
+            <div *ngIf="f.invoiceNo.errors.required">InvoiceNo is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-2 text-right">
+          <div class="label-wrapper">
+            <label class="col-form-label">Customer</label>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <select name="customer"  class="form-control" formControlName="customerInfo">
+            <option *ngFor="let option of customerList" [ngValue]="option">{{option.firstName}} {{option.lastName}}</option>
+          </select>
+          <div *ngIf="submitted && f.customerInfo.errors" class="text-danger">
+            <div *ngIf="f.customerInfo.errors.required">Customer is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="box box-primary top-form">
+        <div class="box-body">
+          <div class="form-horizontal">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Description</th>
+                  <th>QTY</th>
+                  <th>Rate</th>
+                  <th>Amount</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container formArrayName="products">
+                  <ng-container *ngFor="let product of orderForm.get('products').controls; let i = index">
+                    <tr [formGroupName]="i">
+                      <td>
+                        <input type="text" class="form-control" placeholder="Product Name"
+                          formControlName="productName">
+                        <div class="text-danger" *ngIf="submitted && product.get('productName').errors?.required &&
+                                product.get('productName').hasError('required')">
+                          Product Name is required
+                        </div>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" placeholder="Description" formControlName="description">
+                      </td>
+                      <td style="width:10%">
+                        <input type="text" class="form-control" (change)="productTotal(product)"
+                              placeholder="QTY"  formControlName="qty">
+                        <div class="text-danger" *ngIf="submitted && product.get('qty').errors?.required &&
+                                product.get('qty').hasError('required')">
+                          QTY is required
+                        </div>
+                      </td>
+                      <td>
+                        <input type="number" class="form-control" placeholder="Rate" formControlName="rate"
+                          (blur)="productTotal(product)">
+                        <div class="text-danger" *ngIf="submitted && product.get('rate').errors?.required &&
+                                product.get('rate').hasError('required')">
+                          Rate is required
+                        </div>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" placeholder="Amount" formControlName="amount">
+                        <div class="text-danger" *ngIf="submitted && product.get('amount').errors?.required &&
+                                product.get('amount').hasError('required')">
+                          Amount is required
+                        </div>
+                      </td>
+                      <td class="ml-2">
+                        <button type="button" class="btn btn-danger" *ngIf="i !== 0" (click)="removeProduct(i); productTotal(product);">
+                          <i class="fa fa-window-close" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </tbody>
+              <button style="margin:5px;" type="button" class="btn btn-primary" (click)="addProduct()">Add New
+                Product</button>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-start">
+        <div class="row justify-content-between">
+          <div class="col-6">
+            <b>Payment Credit on:</b>
+            <select class="form-control">
+              <option>Make all checks payable to - Maruti Fastners AXIS Bank</option>
+            </select>
+          </div>
+          <div class="col-5">
+            <div class="row">
+              <div class="col-md-7"><b>Courier:</b></div>
+              <div class="col-md-5">
+                <input type="number" formControlName="courier" name="courier" (blur)="subTotal()" style="width:70px">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7"><b>Sub Total:</b></div>
+              <div class="col-md-5">{{subtotal}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-7"><b>CGST at 9% on Sub Total:</b></div>
+              <div class="col-md-5">{{cgst}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-7"><b>SGST at 9% on Sub Total:</b></div>
+              <div class="col-md-5">{{sgst}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-7"><b>Total:</b></div>
+              <div class="col-md-5">{{total}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-7"><b>Roundoff:</b></div>
+              <div class="col-md-5">{{roundOff}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-7"><b>Grand Total:</b></div>
+              <div class="col-md-5">{{grandtotal}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -89,9 +89,9 @@
             <td>{{customer.city}}</td>
             <td>{{customer.state}}</td>
             <td>{{customer.address}}</td>
-            <td>
-              <button type="button" class="btn btn-primary mr-2" (click)="updateCustomer(customer)">Update</button>
-              <button type="button" class="btn btn-danger" (click)="deleteConfirmation(customer)">Delete</button>
+            <td style="width:120px; display:block;">
+              <button type="button" class="btn btn-primary mr-2" (click)="updateCustomer(customer)"><i class="fa fa-pencil"></i></button>
+              <button type="button" class="btn btn-danger" (click)="deleteConfirmation(customer)"><i class="fa fa-window-close"></i></button>
             </td>
           </tr>
         </tbody>

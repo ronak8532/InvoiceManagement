@@ -50,6 +50,7 @@ import {
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 
 import { ToastrModule } from 'ngx-toastr';
+import { PdfTestComponent } from './views/pdf-test/pdf-test.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -62,7 +63,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, ...APP_CONTAINERS, PdfTestComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -46,6 +46,7 @@ export class AddCustomerComponent implements OnInit {
       address: new FormControl(""),
       role: new FormControl("customer"),
       password: new FormControl("abc@123"),
+      zipcode: new FormControl("")
     })
   }
 
