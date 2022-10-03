@@ -52,7 +52,7 @@
             <td>{{order.grandtotal}}</td>
             <td>{{order.updated_at | date}}</td>
             <td>
-              <button type="button" class="btn btn-primary mr-2" (click)="updateOrder(order)">Update</button>
+              <!-- <button type="button" class="btn btn-primary mr-2" (click)="updateOrder(order)">Update</button> -->
               <button type="button" class="btn btn-danger mr-2" (click)="deleteConfirmation(order)">Delete</button>
               <button type="button" class="btn btn-primary" (click)="openPDF(order)">Invoice</button>
             </td>
@@ -152,7 +152,7 @@
         <div class=" row">
           <label for="staticEmail" class="col-sm-2">GSTIN No. :</label>
           <div class="col-sm-7">
-            24BCAPR5986F1ZC
+            {{orderModel.gstin}}
           </div>
           <div class="col-sm-3"></div>
         </div>
@@ -163,7 +163,7 @@
       </th>
       <th style="border:1px solid black; border-collapse:collapse;  padding-left: 10px; font-family:Verdana, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 14px;" colspan="2" bgcolor="#EAEAEA">
         {{orderModel.invoiceNo}} <br>
-        {{orderModel.date | date: 'shortDate'}}
+        {{orderModel.date}}
       </th>
     </tr>
     <tr>
@@ -180,18 +180,18 @@
       <th style="border-style:solid;border-width:1pt;text-align: center;">Rate</th>
       <th style="border-style:solid;border-width:1pt;text-align: center;">Amount</th>
     </tr>
-    <tr class="align-baseline" *ngFor="let product of orderModel.products;
+    <tr style="text-align: center;" class="align-baseline" *ngFor="let product of orderModel.products;
         let i = index;  let last = last" [ngStyle]="last === true ? {'height':'350pt'} : null">
       <td style="border-width:0px 1px 0px 1px;">{{i + 1}}</td>
       <td style="border-width:0px 1px 0px 1px;">{{product.productName}}</td>
-      <td style="border-width:0px 1px 0px 1px;">82073000</td>
-      <td style="border-width:0px 1px 0px 1px;">{{product.qty}}</td>
+      <td style="border-width:0px 1px 0px 1px;">7318</td>
+      <td style="border-width:0px 1px 0px 1px;">{{product.qty}} KG</td>
       <td style="border-width:0px 1px 0px 1px;">{{product.rate}}</td>
       <td style="border-width:0px 1px 0px 1px;">{{product.amount}}</td>
     </tr>
     <tr bgcolor="#EAEAEA" style="font-weight:bold;">
-      <td style="border:1px solid black; border-collapse:collapse;" colspan="3">GSTIN No.: 24ADZFS2071B1Z0</td>
-      <td style="border:1px solid black; border-collapse:collapse;">1</td>
+      <td style="border:1px solid black; border-collapse:collapse;" colspan="3">Company's GSTIN No.: 24AZYPD6811F1ZA</td>
+      <td style="border:1px solid black; border-collapse:collapse;"></td>
       <td style="border:1px solid black; border-collapse:collapse; border-right:0px; border-right-width: 0px;"> Sub Total</td>
       <td style="border:1px solid black; border-collapse:collapse; border-left:0px;"> {{orderModel.subtotal}}</td>
     </tr>
@@ -201,21 +201,21 @@
         <div class="row">
           <label for="staticEmail" class="col-sm-3">Bank Detail :</label>
           <div class="col-sm-6">
-            HDFC BANK, Bhaktinagar Branch, Rajkot
+            CANARA BANK, Wadhwan, Surendranagar, Gujarat
           </div>
           <div class="col-sm-3"></div>
         </div>
         <div class="row">
           <label for="staticEmail" class="col-sm-3">A/c No :</label>
           <div class="col-sm-5">
-            50200051806821
+            120001805659
           </div>
           <div class="col-sm-4"></div>
         </div>
         <div class="row">
           <label for="staticEmail" class="col-sm-3">IFSC CODE :</label>
           <div class="col-sm-5">
-            HDFC0000661
+            CNRB0017184
           </div>
           <div class="col-sm-4"></div>
         </div>

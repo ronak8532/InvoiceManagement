@@ -3,9 +3,10 @@ export class OrderModel {
   address: string;
   city: string;
   state: string;
+  gstin: string;
   zipcode: string;
   invoiceNo: string;
-  date: Date;
+  date: string;
   products: Product[];
   subtotal: number;
   courier: string;
