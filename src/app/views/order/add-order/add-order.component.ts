@@ -3,6 +3,8 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerService } from 'src/app/services/customer.service';
 import { OrderService } from 'src/app/services/order.service';
+import { NgxSpinnerService } from "ngx-spinner";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-order',
@@ -33,18 +35,22 @@ export class AddOrderComponent implements OnInit {
               private router: Router,
               private customerService:CustomerService,
               private orderService: OrderService,
+              private toastrService: ToastrService,
+              private spinner: NgxSpinnerService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.initOrderForm();
     this.getAllCustomer();
-    this.generateInvoiceNo();
     this.route.paramMap.subscribe( paramMap => {
       this.orderId = paramMap.get('id');
       if(this.orderId) {
         this.getOrderDetail(this.orderId);
       }
-  })
+    })
+    if(!this.orderId) {
+      this.generateInvoiceNo();
+    }
   }
 
   initOrderForm() {
@@ -68,26 +74,47 @@ export class AddOrderComponent implements OnInit {
   }
 
   getOrderDetail(id : any) {
+    this.spinner.show();
     this.orderService.getOrderByID(id).subscribe((res: any) => {
       if(res) {
         this.orderDetail = res.order;
         this.setOrderInfo(this.orderDetail);
       }
+    },(err) => {
+      this.spinner.hide();
     })
   }
 
+  setCustomerInfo(e: any) {
+    let customerIndex = this.customerList.findIndex((x: any) => x._id === e.target.value);
+    if(customerIndex > -1) {
+      this.orderForm.controls["customerInfo"].setValue(this.customerList[customerIndex]);
+    }
+  }
+
   setOrderInfo(order: any) {
-    // this.orderForm = new FormGroup({
-    //   invoiceNo: new FormControl(order.invoiceNo, Validators.required),
-    //   customerInfo: new FormControl(order.customerInfo, Validators.required),
-    //   products: this.fb.array([this.updateProduct(order)]),
-    //   courier:new FormControl(order.courier)
-    // })
-    // this.orderForm.controls['products'].setValue(order.products);
-    // this.orderForm.controls["customerInfo"].setValue(order.customerInfo);
-    // this.orderForm.controls['products'].setValue(order.products);
-    // this.orderForm.patchValue(order);
-    // console.log("order", this.orderForm);
+    this.orderForm.controls["invoiceNo"].patchValue(order.invoiceNo);
+    this.orderForm.controls["customerInfo"].setValue(order.customerInfo._id);
+    if(order.products.length > 0) {
+      (this.orderForm.get('products') as FormArray).clear();
+      order.products.forEach((product:any) =>{
+        (this.orderForm.get('products') as FormArray).push(this.updateProductForm(product));
+      })
+      this.subTotal();
+    }
+    this.spinner.hide();
+
+  }
+
+  updateProductForm(product: any) : FormGroup {
+    return this.fb.group({
+      productName: [product.productName, Validators.required],
+      description: [product.decription],
+      qty: [product.qty, Validators.required],
+      rate: [product.rate, Validators.required],
+      amount: [product.amount, Validators.required]
+    });
+
   }
 
   addProduct(): void {
@@ -108,6 +135,7 @@ export class AddOrderComponent implements OnInit {
   }
 
   generateInvoiceNo() {
+    this.spinner.show();
     this.orderService.getLastOrder().subscribe((res: any) => {
       if(res && res.invoiceNo) {
         let lastInvoiceNo = Number(res.invoiceNo);
@@ -119,10 +147,12 @@ export class AddOrderComponent implements OnInit {
         }
         this.invoiceNo = this.getInvoiceNumber(this.invoiceNo);
         this.orderForm.get('invoiceNo').setValue(this.invoiceNo);
+        this.spinner.hide();
       }
     },(err) => {
       this.invoiceNo = this.getInvoiceNumber(null);
       this.orderForm.get('invoiceNo').setValue(this.invoiceNo);
+      this.spinner.hide();
     })
   }
 
@@ -158,10 +188,12 @@ export class AddOrderComponent implements OnInit {
   }
 
   getAllCustomer() {
+    this.spinner.show();
     this.customerService.getAllCustomer().subscribe((res: any) => {
       if(res && res.users) {
         this.customerList = res.users;
       }
+    },(err) => {
     })
   }
 
@@ -202,6 +234,7 @@ export class AddOrderComponent implements OnInit {
     if(!this.orderForm.valid) {
       return;
     }
+    this.spinner.show();
     let orderValue = {
       status: 'Placed',
       subtotal: this.subtotal,
@@ -216,8 +249,12 @@ export class AddOrderComponent implements OnInit {
     }
     this.orderService.placeOrder(order).subscribe((res: any) => {
       if(res && res.success) {
+        this.toastrService.success('Order has been placed');
+        this.spinner.hide();
         this.router.navigate(['order']);
       }
+    },(err) => {
+      this.spinner.hide();
     })
   }
 

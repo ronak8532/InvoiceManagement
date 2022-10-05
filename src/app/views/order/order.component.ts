@@ -5,6 +5,7 @@ import html2canvas from 'html2canvas';
 import { OrderService } from 'src/app/services/order.service';
 import {OrderModel} from './order.model';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from "ngx-spinner";
 
 declare var $: any;
 
@@ -21,17 +22,22 @@ export class OrderComponent implements OnInit {
   deleteOrderDetail: any;
   constructor(private router: Router,
             private orderService: OrderService,
-            private toastrService: ToastrService) { }
+            private toastrService: ToastrService,
+            private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.orderList();
   }
 
   orderList() {
+    this.spinner.show();
     this.orderService.getOrder().subscribe((res:any) => {
       if(res) {
         this.orders = res.order;
+        this.spinner.hide();
       }
+    },(err) => {
+      this.spinner.hide();
     })
   }
 

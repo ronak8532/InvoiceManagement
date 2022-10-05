@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="card card-default">
+  <div class="card card-default table-responsive">
     <div class="card-body">
       <table class="table table-bordered">
         <thead>
@@ -52,9 +52,15 @@
             <td>{{order.grandtotal}}</td>
             <td>{{order.updated_at | date}}</td>
             <td>
-              <!-- <button type="button" class="btn btn-primary mr-2" (click)="updateOrder(order)">Update</button> -->
-              <button type="button" class="btn btn-danger mr-2" (click)="deleteConfirmation(order)">Delete</button>
-              <button type="button" class="btn btn-primary" (click)="openPDF(order)">Invoice</button>
+              <button type="button" class="btn btn-primary mr-2" (click)="updateOrder(order)">
+                <i class="fa fa-pencil"></i>
+              </button>
+              <button type="button" class="btn btn-danger mr-2" (click)="deleteConfirmation(order)">
+                <i class="fa fa-trash"></i>
+              </button>
+              <button type="button" class="btn btn-primary" (click)="openPDF(order)">
+                <i class="fa fa-print"></i>
+              </button>
             </td>
           </tr>
         </tbody>
@@ -307,3 +313,4 @@
   </table>
 </div>
 </div>
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

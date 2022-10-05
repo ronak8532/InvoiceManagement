@@ -6,6 +6,7 @@ import { OrderRoutingModule } from './order-routing.module';
 import { OrderComponent } from './order.component';
 import { AddOrderComponent } from './add-order/add-order.component';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { AmountInWordsPipe } from '../../pipe/number-to-words.pipe';
 
@@ -20,7 +21,8 @@ import { AmountInWordsPipe } from '../../pipe/number-to-words.pipe';
     OrderRoutingModule,
     ReactiveFormsModule,
     AutocompleteLibModule,
-    FormsModule
+    FormsModule,
+    NgxSpinnerModule
   ]
 })
 export class OrderModule { }

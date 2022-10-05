@@ -28,8 +28,8 @@
           </div>
         </div>
         <div class="col-md-10">
-          <select name="customer"  class="form-control" formControlName="customerInfo">
-            <option *ngFor="let option of customerList" [ngValue]="option">{{option.firstName}} {{option.lastName}}</option>
+          <select name="customer"  class="form-control" formControlName="customerInfo" (change)="setCustomerInfo($event)">
+            <option *ngFor="let option of customerList" [ngValue]="option._id">{{option.firstName}} {{option.lastName}}</option>
           </select>
           <div *ngIf="submitted && f.customerInfo.errors" class="text-danger">
             <div *ngIf="f.customerInfo.errors.required">Customer is required</div>
@@ -39,7 +39,7 @@
       <div class="box box-primary top-form">
         <div class="box-body">
           <div class="form-horizontal">
-            <table class="table table-bordered">
+            <table class="table table-bordered table-responsive">
               <thead>
                 <tr>
                   <th>Product</th>
