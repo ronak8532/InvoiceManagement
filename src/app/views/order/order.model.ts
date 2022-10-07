@@ -18,6 +18,7 @@ export class OrderModel {
   total_gst: string;
   bill_amt: string;
   gst_word: string;
+  invoiceDate: string;
 }
 
 

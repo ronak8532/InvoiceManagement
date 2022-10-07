@@ -21,6 +21,7 @@ export class AddOrderComponent implements OnInit {
   invoiceNo: any;
   qtyList:any = [50,100,150,200,250,300,350,400,450,500];
   taxList:any = ["No Tax","GST: 18%"];
+  statusList:any = ["Placed","Paid"];
   subtotal: any = 0;
   cgst: any = 0;
   sgst: any = 0;
@@ -57,6 +58,8 @@ export class AddOrderComponent implements OnInit {
     this.orderForm = new FormGroup({
       invoiceNo: new FormControl(this.invoiceNo, Validators.required),
       customerInfo: new FormControl('', Validators.required),
+      invoiceDate: new FormControl(new Date()),
+      status: new FormControl(''),
       products: this.fb.array([this.addProductForm()]),
       courier:new FormControl(0)
     })
@@ -74,19 +77,20 @@ export class AddOrderComponent implements OnInit {
   }
 
   getOrderDetail(id : any) {
-    this.spinner.show();
+
     this.orderService.getOrderByID(id).subscribe((res: any) => {
       if(res) {
         this.orderDetail = res.order;
         this.setOrderInfo(this.orderDetail);
       }
     },(err) => {
-      this.spinner.hide();
+
     })
   }
 
-  setCustomerInfo(e: any) {
-    let customerIndex = this.customerList.findIndex((x: any) => x._id === e.target.value);
+  setCustomerInfo(orderId: any) {
+    //orderId = orderId.substring(orderId.indexOf(":") + 1).trim;
+    let customerIndex = this.customerList.findIndex((x: any) => x._id === orderId);
     if(customerIndex > -1) {
       this.orderForm.controls["customerInfo"].setValue(this.customerList[customerIndex]);
     }
@@ -94,7 +98,10 @@ export class AddOrderComponent implements OnInit {
 
   setOrderInfo(order: any) {
     this.orderForm.controls["invoiceNo"].patchValue(order.invoiceNo);
+    this.orderForm.controls["invoiceDate"].patchValue(order.invoiceDate);
+    this.orderForm.controls["courier"].patchValue(order.courier);
     this.orderForm.controls["customerInfo"].setValue(order.customerInfo._id);
+    this.orderForm.controls["status"].setValue(order.status);
     if(order.products.length > 0) {
       (this.orderForm.get('products') as FormArray).clear();
       order.products.forEach((product:any) =>{
@@ -102,7 +109,7 @@ export class AddOrderComponent implements OnInit {
       })
       this.subTotal();
     }
-    this.spinner.hide();
+
 
   }
 
@@ -135,7 +142,7 @@ export class AddOrderComponent implements OnInit {
   }
 
   generateInvoiceNo() {
-    this.spinner.show();
+
     this.orderService.getLastOrder().subscribe((res: any) => {
       if(res && res.invoiceNo) {
         let lastInvoiceNo = Number(res.invoiceNo);
@@ -147,12 +154,12 @@ export class AddOrderComponent implements OnInit {
         }
         this.invoiceNo = this.getInvoiceNumber(this.invoiceNo);
         this.orderForm.get('invoiceNo').setValue(this.invoiceNo);
-        this.spinner.hide();
+
       }
     },(err) => {
       this.invoiceNo = this.getInvoiceNumber(null);
       this.orderForm.get('invoiceNo').setValue(this.invoiceNo);
-      this.spinner.hide();
+
     })
   }
 
@@ -192,8 +199,10 @@ export class AddOrderComponent implements OnInit {
     this.customerService.getAllCustomer().subscribe((res: any) => {
       if(res && res.users) {
         this.customerList = res.users;
+        this.spinner.hide();
       }
     },(err) => {
+      this.spinner.hide();
     })
   }
 
@@ -210,7 +219,7 @@ export class AddOrderComponent implements OnInit {
   subTotal() {
     this.subtotal = this.orderForm.controls.products.value.reduce(
       (accumulator: any, currentValue: any) => accumulator + parseFloat(currentValue.amount), 0);
-      this.subtotal = this.subtotal + this.orderForm.controls.courier.value;
+      //this.subtotal = this.subtotal + this.orderForm.controls.courier.value;
       this.subtotal = parseFloat(this.subtotal).toFixed(2);
     this.GSTCalculation(this.subtotal);
   }
@@ -219,6 +228,7 @@ export class AddOrderComponent implements OnInit {
     this.cgst = (subtotal * 9 / 100).toFixed(2);
     this.sgst = (subtotal * 9 / 100).toFixed(2);
     this.total = +subtotal + parseFloat(this.cgst) + parseFloat(this.sgst);
+    this.total = this.total + Number(this.orderForm.controls.courier.value);
     this.total = parseFloat(this.total).toFixed(2);
     this.roundOffCalculation(this.total);
   }
@@ -235,8 +245,8 @@ export class AddOrderComponent implements OnInit {
       return;
     }
     this.spinner.show();
+    this.setCustomerInfo(this.orderForm.controls.customerInfo.value);
     let orderValue = {
-      status: 'Placed',
       subtotal: this.subtotal,
       cgst: this.cgst,
       sgst: this.sgst,
@@ -247,15 +257,28 @@ export class AddOrderComponent implements OnInit {
     let order = {
       ...this.orderForm.value, ...orderValue
     }
-    this.orderService.placeOrder(order).subscribe((res: any) => {
-      if(res && res.success) {
-        this.toastrService.success('Order has been placed');
+    if(!this.orderId) {
+      this.orderService.placeOrder(order).subscribe((res: any) => {
+        if(res && res.success) {
+          this.toastrService.success('Order has been placed');
+          this.spinner.hide();
+          this.router.navigate(['order']);
+        }
+      },(err) => {
         this.spinner.hide();
-        this.router.navigate(['order']);
-      }
-    },(err) => {
-      this.spinner.hide();
-    })
+      })
+    } else {
+      this.orderService.updateOrder(order, this.orderId).subscribe((res: any) => {
+        if(res && res.success) {
+          this.toastrService.success('Order has been updated');
+          this.spinner.show();
+          this.router.navigate(['order']);
+        }
+      },(err) => {
+        this.spinner.hide();
+      })
+    }
+
   }
 
 }

@@ -57,6 +57,7 @@ export class OrderComponent implements OnInit {
     this.orderModel.gstin = order.customerInfo.gstin;
     this.orderModel.invoiceNo = order.invoiceNo;
     this.orderModel.date = this.dateToYMD(new Date());
+    this.orderModel.invoiceDate = this.dateToYMD(new Date(order.invoiceDate));
     this.orderModel.products = order.products;
     this.orderModel.subtotal = Number(order.subtotal) - Number(order.courier);
     this.orderModel.courier = order.courier;

@@ -24,16 +24,39 @@
       <div class="form-group row">
         <div class="col-md-2 text-right">
           <div class="label-wrapper">
+            <label class="col-form-label">InvoiceDate</label>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <input autocomplete="off" class="form-control text-box single-line" formControlName="invoiceDate"
+            name="invoiceNo" type="date">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-2 text-right">
+          <div class="label-wrapper">
             <label class="col-form-label">Customer</label>
           </div>
         </div>
         <div class="col-md-10">
-          <select name="customer"  class="form-control" formControlName="customerInfo" (change)="setCustomerInfo($event)">
+          <select name="customer"  class="form-control" formControlName="customerInfo">
             <option *ngFor="let option of customerList" [ngValue]="option._id">{{option.firstName}} {{option.lastName}}</option>
           </select>
           <div *ngIf="submitted && f.customerInfo.errors" class="text-danger">
             <div *ngIf="f.customerInfo.errors.required">Customer is required</div>
           </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-2 text-right">
+          <div class="label-wrapper">
+            <label class="col-form-label">Status</label>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <select name="customer"  class="form-control" formControlName="status">
+            <option *ngFor="let option of statusList" [ngValue]="option">{{option}}</option>
+          </select>
         </div>
       </div>
       <div class="box box-primary top-form">
@@ -151,3 +174,4 @@
     </div>
   </div>
 </form>
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>

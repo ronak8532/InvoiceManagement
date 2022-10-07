@@ -16,6 +16,10 @@ export class OrderService {
     return this.http.post(`${environment.baseUrl}/admin/order/placeOrder`, data);
   }
 
+  updateOrder(data: any, orderId: any) {
+    return this.http.post(`${environment.baseUrl}/admin/order/updateOrder/${orderId}`, data);
+  }
+
   getProductById(id: any) {
     return this.http.get(`${environment.baseUrl}/admin/product/findById/${id}`);
   }
