@@ -34,11 +34,29 @@ export class OrderComponent implements OnInit {
     this.orderService.getOrder().subscribe((res:any) => {
       if(res) {
         this.orders = res.order;
+        this.orders.map((x : any) => {
+          const d = new Date();
+          let day = this.days_between(new Date(x.updated_at), d);
+          x.due =  day;
+        })
         this.spinner.hide();
       }
     },(err) => {
       this.spinner.hide();
     })
+  }
+
+  public days_between(date1:any, date2:any) {
+
+    // The number of milliseconds in one day
+    const ONE_DAY = 1000 * 60 * 60 * 24;
+
+    // Calculate the difference in milliseconds
+    const differenceMs = Math.abs(date1 - date2);
+
+    // Convert back to days and return
+    return Math.round(differenceMs / ONE_DAY);
+
   }
 
   public openPDF(order: any): void {

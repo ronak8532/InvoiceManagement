@@ -10,17 +10,17 @@
   <div class="card card-default">
     <div class="card-body">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 col-sm-12">
           <div class="form-group row">
-            <div class="col-md-2 text-right">
-              <div class="label-wrapper">
+            <div class="col-md-2 col-sm-2 text-right">
+              <div class="label-wrapper lbl-left">
                 <label class="col-form-label">Search</label>
               </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 col-sm-7">
               <input autocomplete="off" class="form-control text-box single-line" name="search" type="text">
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-3">
               <button class="btn btn-primary btn-search">Search</button>
             </div>
           </div>
@@ -40,6 +40,7 @@
             <th scope="col">Status</th>
             <th scope="col">Amount</th>
             <th scope="col">Date</th>
+            <th scope="col">Due Since</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -51,6 +52,7 @@
             <td>{{order.status}}</td>
             <td>{{order.grandtotal}}</td>
             <td>{{order.updated_at | date}}</td>
+            <td>{{order.due}}</td>
             <td>
               <button type="button" class="btn btn-primary mr-2" (click)="updateOrder(order)">
                 <i class="fa fa-pencil"></i>

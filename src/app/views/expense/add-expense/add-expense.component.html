@@ -1,0 +1,55 @@
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<form [formGroup]="expenseForm" (ngSubmit)="saveExpense()">
+  <div class="card card-default">
+    <div class="card-header">
+      Customer Info
+      <button type="submit" class="btn btn-primary float-right">Save</button>
+      <button type="button" class="btn btn-primary float-right mr-2" (click)="backExpense()">Back</button>
+    </div>
+
+    <div class="card-body">
+      <div class="form-group row">
+        <div class="col-md-2 col-sm-2 text-right">
+          <div class="label-wrapper lbl-left">
+            <label class="col-form-label">Expense</label>
+          </div>
+        </div>
+        <div class="col-md-10 col-sm-10">
+          <input autocomplete="off" class="form-control text-box single-line" formControlName="expenseDescription" name="expenseDescription"
+            name="firstName" type="text">
+          <div *ngIf="submitted && f.expenseDescription.errors" class="text-danger">
+            <div *ngIf="f.expenseDescription.errors.required">Expense Description is required</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-group row">
+        <div class="col-md-2 col-sm-2 text-right">
+          <div class="label-wrapper lbl-left">
+            <label class="col-form-label">Amount</label>
+          </div>
+        </div>
+        <div class="col-md-10 col-sm-10">
+          <input autocomplete="off" class="form-control text-box single-line" formControlName="amount" name="amount"
+            type="text">
+          <div *ngIf="submitted && f.amount.errors" class="text-danger">
+            <div *ngIf="f.amount.errors.required">Amount is required</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-group row">
+        <div class="col-md-2 col-sm-2 text-right">
+          <div class="label-wrapper lbl-left">
+            <label class="col-form-label">Status</label>
+          </div>
+        </div>
+        <div class="col-md-10 col-sm-10">
+          <select name="customer"  class="form-control" formControlName="status">
+            <option *ngFor="let option of statusList" [ngValue]="option">{{option}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -13,7 +13,7 @@
         <div class="col-md-5">
           <div class="form-group row">
             <div class="col-md-4 text-right">
-              <div class="label-wrapper">
+              <div class="label-wrapper lbl-left">
                 <label class="col-form-label">Email</label>
               </div>
             </div>
@@ -23,7 +23,7 @@
           </div>
           <div class="form-group row">
             <div class="col-md-4 text-right">
-              <div class="label-wrapper">
+              <div class="label-wrapper lbl-left">
                 <label class="col-form-label">Name</label>
               </div>
             </div>
@@ -35,7 +35,7 @@
         <div class="col-md-7">
           <div class="form-group row">
             <div class="col-md-4 text-right">
-              <div class="label-wrapper">
+              <div class="label-wrapper lbl-left">
                 <label class="col-form-label">City</label>
               </div>
             </div>
@@ -45,7 +45,7 @@
           </div>
           <div class="form-group row">
             <div class="col-md-4 text-right">
-              <div class="label-wrapper">
+              <div class="label-wrapper lbl-left">
                 <label class="col-form-label">Text</label>
               </div>
             </div>
@@ -72,7 +72,7 @@
             <th scope="col">Firstname</th>
             <th scope="col">Lastname</th>
             <th scope="col">Phone Number</th>
-            <th scope="col">Email</th>
+            <!-- <th scope="col">Email</th> -->
             <th scope="col">City</th>
             <th scope="col">State</th>
             <th scope="col">Address</th>
@@ -85,11 +85,11 @@
             <td>{{customer.firstName}}</td>
             <td>{{customer.lastName}}</td>
             <td>{{customer.phoneNumber}}</td>
-            <td>{{customer.email}}</td>
+            <!-- <td>{{customer.email}}</td> -->
             <td>{{customer.city}}</td>
             <td>{{customer.state}}</td>
             <td>{{customer.address}}</td>
-            <td style="width:120px; display:block;">
+            <td class="action-btn">
               <button type="button" class="btn btn-primary mr-2" (click)="updateCustomer(customer)"><i class="fa fa-pencil"></i></button>
               <button type="button" class="btn btn-danger" (click)="deleteConfirmation(customer)"><i class="fa fa-window-close"></i></button>
             </td>
