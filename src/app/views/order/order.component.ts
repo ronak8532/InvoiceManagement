@@ -88,6 +88,13 @@ export class OrderComponent implements OnInit {
   }
 
   downloadPDF(order: any) {
+    this.spinner.show();
+    if(screen.width < 1024) {
+      const webView = document.getElementById("viewportMeta");
+      if(webView != null) {
+        webView.setAttribute("content", "width=1200px");
+       }
+    }
     let DATA: any = document.getElementById('htmlData');
 
     html2canvas(DATA,
@@ -96,7 +103,12 @@ export class OrderComponent implements OnInit {
           clonedDoc.getElementById('htmlData').style.display = 'block';
       }
       }).then((canvas) => {
-
+        if(screen.width < 1024) {
+          const webView = document.getElementById("viewportMeta");
+          if(webView != null) {
+            webView.setAttribute("content", "width=device-width, initial-scale=1");
+          }
+        }
       let fileWidth = 210;
       let fileHeight = (canvas.height * fileWidth) / canvas.width;
       const FILEURI = canvas.toDataURL('image/png');
@@ -105,6 +117,7 @@ export class OrderComponent implements OnInit {
       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
       var today = this.dateToYMD(new Date());
       PDF.save(`${this.orderModel.vendorName}-${today}.pdf`);
+      this.spinner.hide();
     });
   }
 
