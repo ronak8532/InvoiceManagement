@@ -36,8 +36,12 @@ export class OrderService {
     return this.http.delete(`${environment.baseUrl}/admin/product/deleteProduct/${id}`);
   }
 
-  getOrder() {
-    return this.http.get(`${environment.baseUrl}/admin/order/list`);
+  getOrder(fromDate: any , toDate: any) {
+    if(fromDate !== null && toDate !== null) {
+      return this.http.get(`${environment.baseUrl}/admin/order/list?fromDate=${fromDate}&toDate=${toDate}&status=Paid`);
+    } else {
+      return this.http.get(`${environment.baseUrl}/admin/order/list`);
+    }
   }
 
   getOrderByID(id: any) {

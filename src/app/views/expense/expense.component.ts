@@ -24,7 +24,7 @@ export class ExpenseComponent implements OnInit {
 
   getAllExpense() {
     this.spinner.show();
-    this.expenseService.getAllExpense().subscribe((data: any) => {
+    this.expenseService.getAllExpense(null, null).subscribe((data: any) => {
       if(data && data.expense) {
         this.expenseList = data.expense;
         console.log(this.expenseList);

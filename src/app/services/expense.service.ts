@@ -12,8 +12,12 @@ export class ExpenseService {
     private route: Router,
   ) { }
 
-  getAllExpense() {
-   return this.http.get(`${environment.baseUrl}/admin/expense/list`);
+  getAllExpense(fromDate: any , toDate: any) {
+    if(fromDate !== null && toDate !== null) {
+      return this.http.get(`${environment.baseUrl}/admin/expense/list?fromDate=${fromDate}&toDate=${toDate}&status=Paid`);
+    } else {
+      return this.http.get(`${environment.baseUrl}/admin/expense/list`);
+    }
   }
 
   getExpenseById(id: any) {

@@ -1,0 +1,59 @@
+<form [formGroup]="searchForm" (ngSubmit)="search()">
+  <div class="card card-default">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-5 col-sm-5">
+          <div class="form-group row">
+            <div class="col-md-2 col-sm-2 text-right">
+              <div class="label-wrapper lbl-left">
+                <label class="col-form-label">From</label>
+              </div>
+            </div>
+            <div class="col-md-10 col-sm-10">
+              <input formControlName="fromDate" autocomplete="off" class="form-control text-box single-line" name="search" type="date">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 col-sm-5">
+          <div class="form-group row">
+            <div class="col-md-2 col-sm-2 text-right">
+              <div class="label-wrapper lbl-left">
+                <label class="col-form-label">To</label>
+              </div>
+            </div>
+            <div class="col-md-10 col-sm-10">
+              <input formControlName="toDate" autocomplete="off" class="form-control text-box single-line" name="date" type="date">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-2">
+          <button type="submit" class="btn btn-primary btn-search">Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="card card-default table-responsive">
+  <div class="card-body">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Credit</th>
+          <th scope="col">Debit</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let passbook of sortData; let i = index;">
+          <th scope="row">{{i+1}}</th>
+          <td>{{passbook.Name}}</td>
+          <td>{{passbook.Credit}}</td>
+          <td>{{passbook.Debit}}</td>
+          <td>{{passbook.Date | date}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

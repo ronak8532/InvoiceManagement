@@ -91,9 +91,9 @@
   </div>
 </div>
 
-<div id="htmlData" style="display:none;padding:20px; color:black; font-family:Arial, Helvetica, sans-serif; font-style: normal; ">
+<div id="htmlData" style="display:none; font-size:18px;padding:20px; color:black; font-family:Times New Roman; font-style: normal; ">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewportMeta" />
-  <div style="margin:5px; border:1px solid black;">
+  <div style="margin:5px; border-style: solid; border-color: black; border-width: 1px;">
   <table style="width: 100%">
     <tbody>
       <tr>
@@ -105,8 +105,8 @@
               </td>
             </div>
             <div class="col"></div>
-            <div class="col" style="font-size: 15px !important; vertical-align: 1pt;">
-              <td>
+            <div class="col" style="font-size: 15px !important; vertical-align: 1px;">
+              <td style="font-weight: bold">
                 Plot No 3002, Phase - 4<br>
                 Near Umiya bekari,<br>
                 G.I.D.C Wadhwan, Surendranagar,<br>
@@ -129,7 +129,7 @@
 
   <p style="padding-bottom: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;"></p>
   <table style="border-collapse:collapse; width:100%;" cellspacing="0">
-    <tr style="border-style: solid; border-width: 1pt;font-weight: bold; text-align: center;">
+    <tr style="border-style: solid; border-color: black; border-width: 1px; font-weight: bold; text-align: center;border-left-width: 0px; border-right-width: 0px;">
       <th colspan="6">
         <div class="container">
           <div class="row">
@@ -142,7 +142,7 @@
 
     </tr>
     <tr>
-      <th style="border:1px solid black; border-collapse:collapse; width:70%; font-weight: normal;" colspan="4" rowspan="2">
+      <th style="width:70%; font-weight: normal;" colspan="4" rowspan="2">
         <div class="row">
           <label for="staticEmail" class="col-sm-2">M/s. :</label>
           <div class="col-sm-6">
@@ -158,55 +158,55 @@
           </label>
 
         </div>
-        <div class=" row">
-          <label for="staticEmail" class="col-sm-2">GSTIN No. :</label>
+        <div class="row">
+          <label for="staticEmail" class="col-sm-2">GSTIN No. </label>
           <div class="col-sm-7">
             {{orderModel.gstin}}
           </div>
           <div class="col-sm-3"></div>
         </div>
       </th>
-      <th style="border:1px solid black; border-collapse:collapse; padding-left: 10px; font-family:Verdana, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 14px;" bgcolor="#EAEAEA">
+      <th style="border-style: solid; border-color: black; border-width: 1px; border-top-width:0px; border-bottom-width:0px; padding-left: 10px; font-style: normal; font-weight: bold; text-decoration: none; font-size: 16px;">
         InvoiceNo <br>
         Date
       </th>
-      <th style="border:1px solid black; border-collapse:collapse;  padding-left: 10px; font-family:Verdana, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 14px;" colspan="2" bgcolor="#EAEAEA">
+      <th style="border-style: solid; border-color: black; padding-left: 10px; font-style: normal; font-weight: bold; text-decoration: none; font-size: 16px;" colspan="2">
         {{orderModel.invoiceNo}} <br>
         {{orderModel.invoiceDate}}
       </th>
     </tr>
     <tr>
-      <td style="border-style:solid;border-width:1pt;" colspan="3">
+      <td style="border-style: solid; border-color: black; border-width: 1px;border-bottom-width:0px; border-right-width:0px;" colspan="3">
         <p style="text-indent: 0pt;text-align: left;"><br /></p>
       </td>
     </tr>
 
     <tr>
-      <th style="border-style:solid;border-width:1pt;text-align: center;">SrNo.</th>
-      <th style="border-style:solid;border-width:1pt;text-align: center;">Product Name</th>
-      <th style="border-style:solid;border-width:1pt;text-align: center;">HSN/SAC</th>
-      <th style="border-style:solid;border-width:1pt;text-align: center;">QTY</th>
-      <th style="border-style:solid;border-width:1pt;text-align: center;">Rate</th>
-      <th style="border-style:solid;border-width:1pt;text-align: center;">Amount</th>
+      <th style="border-style:solid;border-color: black;border-width:1px;text-align: center;border-left-width:0px; border-right-width:0px;">SrNo.</th>
+      <th style="border-style:solid;border-color: black;border-width:1px;text-align: center;border-right-width:0px;">Product Name</th>
+      <th style="border-style:solid;border-color: black;border-width:1px;text-align: center;border-right-width:0px;">HSN/SAC</th>
+      <th style="border-style:solid;border-color: black;border-width:1px;text-align: center;border-right-width:0px;">QTY</th>
+      <th style="border-style:solid;border-color: black;border-width:1px;text-align: center;border-right-width:0px;">Rate</th>
+      <th style="border-style:solid;border-color: black;border-width:1px;text-align: center;border-left-width:0px; border-right-width:0px;">Amount</th>
     </tr>
     <tr style="text-align: center;" class="align-baseline" *ngFor="let product of orderModel.products;
         let i = index;  let last = last" [ngStyle]="last === true ? {'height':'350pt'} : null">
-      <td style="border-width:0px 1px 0px 1px;">{{i + 1}}</td>
-      <td style="border-width:0px 1px 0px 1px;">{{product.productName}}</td>
-      <td style="border-width:0px 1px 0px 1px;">7318</td>
-      <td style="border-width:0px 1px 0px 1px;">{{product.qty}} KG</td>
-      <td style="border-width:0px 1px 0px 1px;">{{product.rate}}</td>
-      <td style="border-width:0px 1px 0px 1px;">{{product.amount}}</td>
+      <td style="border-style:solid;border-color: black;border-width:0px 1px 0px 1px;border-left-width:0px;border-right-width:0px;">{{i + 1}}</td>
+      <td style="border-style:solid;border-color: black;border-width:0px 1px 0px 1px;border-right-width:0px;">{{product.productName}}</td>
+      <td style="border-style:solid;border-color: black;border-width:0px 1px 0px 1px;border-right-width:0px;">7318</td>
+      <td style="border-style:solid;border-color: black;border-width:0px 1px 0px 1px;border-right-width:0px;">{{product.qty}} KG</td>
+      <td style="border-style:solid;border-color: black;border-width:0px 1px 0px 1px;border-right-width:0px;border-top-width:0px;">{{product.rate}}</td>
+      <td style="border-style:solid;border-color: black;border-width:0px 1px 0px 1px;border-right-width:0px;border-top-width:0px;">{{product.amount}}</td>
     </tr>
     <tr bgcolor="#EAEAEA" style="font-weight:bold;">
-      <td style="border:1px solid black; border-collapse:collapse;" colspan="3">Company's GSTIN No.: 24AZYPD6811F1ZA</td>
-      <td style="border:1px solid black; border-collapse:collapse;"></td>
+      <td style="border-style:solid;border-color: black;border-top-width:1px;border-bottom-width:1px; border-left-width:1px;" colspan="3">Company's GSTIN No.: 24AZYPD6811F1ZA</td>
+      <td style="border-style:solid;border-color: black;border-width:1px; border-right-width:0px;"></td>
       <td style="border:1px solid black; border-collapse:collapse; border-right:0px; border-right-width: 0px;"> Sub Total</td>
-      <td style="border:1px solid black; border-collapse:collapse; border-left:0px;"> {{orderModel.subtotal}}</td>
+      <td style="border:1px solid black; border-right-width:0px; border-collapse:collapse; border-left:0px;"> {{orderModel.subtotal}}</td>
     </tr>
     <!--Bank Details-->
     <tr>
-      <td colspan="4" style="border:1px solid black; border-collapse:collapse;">
+      <td colspan="4" style="">
         <div class="row">
           <label for="staticEmail" class="col-sm-3">Bank Detail :</label>
           <div class="col-sm-6">
@@ -229,7 +229,7 @@
           <div class="col-sm-4"></div>
         </div>
       </td>
-      <td colspan="2" rowspan="2" style="border:1px solid black; border-collapse:collapse;">
+      <td colspan="2" rowspan="2" style="border-style: solid; border-color: black; border-left-width: 1px;">
         <div class="row">
           <label for="staticEmail" class="col-sm-6">Courier:</label>
           <div class="col-sm-5">
@@ -271,7 +271,7 @@
       </td>
     </tr>
     <tr>
-      <td colspan="4" style="border:1px solid black; border-collapse:collapse;">
+      <td colspan="4" style="border-style: solid;  border-color: black; border-top-width: 1px;">
         <div class="row">
           <label for="staticEmail" class="col-sm-3">Total GST:</label>
           <div class="col-sm-9">
@@ -287,8 +287,8 @@
       </td>
     </tr>
     <tr>
-      <td colspan="4" style="border:1px solid black; border-collapse:collapse;">Note :</td>
-      <td colspan="2" style="border:1px solid black; border-collapse:collapse;">
+      <td colspan="4" style="border-style: solid; border-color: black;  border-width: 1px; border-left-width:0px; border-right-width:0px;">Note :</td>
+      <td colspan="2" style="border-style: solid; border-color: black; border-width: 1px; border-right-width:0px;">
         <div class="row" style="font-size:19px; font-weight:bold;">
           <label for="staticEmail" class="col-sm-6" >Grand Total:</label>
           <div class="col-sm-5">
@@ -299,7 +299,7 @@
       </td>
     </tr>
     <tr>
-      <td colspan="4" style="border:1px solid black; border-collapse:collapse; font-size:11px;">
+      <td colspan="4" style=" font-size:11px; ">
         <span style="font-weight: bold;">Terms & Condition :</span>
         <ol>
           <li>1.Goods once sold will not be taken back.</li>
@@ -308,9 +308,9 @@
           <li>4.All disputes subject to Surendranagar Jurisdiction. E.&.O.E.</li>
         </ol>
       </td>
-      <td class="align-baseline" colspan="2" style="border:1px solid black; border-collapse:collapse; font-size:12px;">
-        <span >For,  MARUTI FASTENERS</span>
-        <span style="float:right;">(Authorised Signatory)</span>
+      <td class="align-baseline" colspan="2" style="border-style: solid; border-color: black; border-left-width: 1px; font-size:12px;">
+        <b >For,  MARUTI FASTENERS</b>
+        <b style="float:right;">(Authorised Signatory)</b>
       </td>
     </tr>
   </table>

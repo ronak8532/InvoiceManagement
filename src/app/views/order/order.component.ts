@@ -31,7 +31,7 @@ export class OrderComponent implements OnInit {
 
   orderList() {
     this.spinner.show();
-    this.orderService.getOrder().subscribe((res:any) => {
+    this.orderService.getOrder(null, null).subscribe((res:any) => {
       if(res) {
         this.orders = res.order;
         this.orders.map((x : any) => {
@@ -99,6 +99,7 @@ export class OrderComponent implements OnInit {
 
     html2canvas(DATA,
       {
+        scale: 3,
         onclone: function (clonedDoc: any) {
           clonedDoc.getElementById('htmlData').style.display = 'block';
       }
@@ -112,7 +113,7 @@ export class OrderComponent implements OnInit {
       let fileWidth = 210;
       let fileHeight = (canvas.height * fileWidth) / canvas.width;
       const FILEURI = canvas.toDataURL('image/png');
-      let PDF = new jsPDF('p', 'mm', [265, 210]);
+      let PDF = new jsPDF('p', 'mm', [280, 210]);
       let position = 0;
       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
       var today = this.dateToYMD(new Date());

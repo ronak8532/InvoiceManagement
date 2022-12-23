@@ -24,6 +24,11 @@ export const navItems: INavData[] = [
   {
     name: 'Expenses',
     url: '/expense',
-    iconComponent: { name: 'cil-basket' }
+    iconComponent: { name: 'cil-notes' }
+  },
+  {
+    name: 'Bank',
+    url: '/bank',
+    iconComponent: { name: 'cil-calculator' }
   }
 ];

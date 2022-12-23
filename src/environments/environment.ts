@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://marutifastenersbackend.herokuapp.com'
+  baseUrl: 'http://localhost:3000'
 };
 
 /*

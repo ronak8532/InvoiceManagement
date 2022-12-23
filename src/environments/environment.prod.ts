@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://marutifastenersbackend.herokuapp.com'
+  baseUrl: 'https://marutifastenersapi.glitch.me'
 };
