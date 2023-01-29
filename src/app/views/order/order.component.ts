@@ -92,11 +92,11 @@ export class OrderComponent implements OnInit {
     if(screen.width < 1024) {
       const webView = document.getElementById("viewportMeta");
       if(webView != null) {
-        webView.setAttribute("content", "width=1200px");
+        webView.setAttribute("content", "width=1500px");
        }
     }
     let DATA: any = document.getElementById('htmlData');
-
+    window.scrollTo(0,0);
     html2canvas(DATA,
       {
         scale: 3,
@@ -113,13 +113,14 @@ export class OrderComponent implements OnInit {
       let fileWidth = 210;
       let fileHeight = (canvas.height * fileWidth) / canvas.width;
       const FILEURI = canvas.toDataURL('image/png');
-      let PDF = new jsPDF('p', 'mm', [280, 210]);
+      let PDF = new jsPDF('p', 'mm', [290, 210]);
       let position = 0;
       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
       var today = this.dateToYMD(new Date());
       PDF.save(`${this.orderModel.vendorName}-${today}.pdf`);
       this.spinner.hide();
     });
+    window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
   }
 
   createOrder() {

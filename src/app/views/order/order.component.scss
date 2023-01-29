@@ -44,6 +44,8 @@
   border-bottom: 20px solid transparent;
 }
 
+.html2canvas-container { width: 3000px !important; height: 3000px !important; }
+
 @media only screen and (max-width: 767px) {
   .lbl-left {
     text-align: left;
@@ -51,9 +53,7 @@
 }
 
 
-@media
-only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 1024px)  {
+@media only screen and (max-device-width: 480px)  {
 
 	/* Force table to not be like tables anymore */
 	table, thead, tbody, th, td, tr {
